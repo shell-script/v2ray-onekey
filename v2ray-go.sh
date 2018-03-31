@@ -114,7 +114,7 @@ Vmess链接：${now_vmess_link}
 		clear
 		echo -e "${error_font}请输入序号！"
 		exit 1
-	elif [[ ${determine_type} -lt 1 ]]; then
+	elif [[ ${determine_type} -lt 0 ]]; then
 		clear
 		echo -e "${error_font}请输入正确的序号！"
 		exit 1
