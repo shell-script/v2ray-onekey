@@ -650,7 +650,7 @@ function data_processing(){
 					clear_install
 					exit 1
 				fi
-				wget -O "/etc/v2ray/pages/v2ray-page.zip" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/pages/v2ray-page.zip"
+				wget -O "/etc/v2ray/pages/v2ray-page.zip" "https://github.com/1715173329/v2ray-onekey/blob/master/pages/v2ray-webpage.zip?raw=true"
 				if [[ $? -eq 0 ]];then
 					clear
 					echo -e "${ok_font}下载网页文件压缩包成功。"
