@@ -1,0 +1,27 @@
+{
+    "inbound":{
+        "port":V2RayListenPort,
+        "listen":"127.0.0.1",
+        "protocol":"vmess",
+        "settings":{
+            "clients":[
+                {
+                    "id":"UserUUID",
+                    "alterId":100
+                }
+            ]
+        },
+        "streamSettings":{
+            "network":"ws",
+            "wsSettings":{
+                "path":"/fuckgfw_gfwmotherfuckingboom/PathUUID"
+            }
+        }
+    },
+    "outbound":{
+        "protocol":"freedom",
+        "settings":{
+
+        }
+    }
+}

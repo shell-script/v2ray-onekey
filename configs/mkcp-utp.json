@@ -9,7 +9,7 @@
                     "alterId":100
                 }
             ],
-            "disableInsecureEncryption":true
+			"disableInsecureEncryption":true
         },
         "streamSettings":{
             "network":"kcp",
@@ -22,12 +22,9 @@
                 "readBufferSize":2,
                 "writeBufferSize":2,
                 "header":{
-                    "type":"srtp"
+                    "type":"utp"
                 }
             }
-        },
-        "detour":{
-            "to":"dynport"
         }
     },
     "outbound":{
@@ -37,34 +34,7 @@
         }
     },
     "inboundDetour":[
-        {
-            "protocol":"vmess",
-            "port":"60000-61315",
-            "tag":"dynport",
-            "settings":{
 
-            },
-            "allocate":{
-                "strategy":"random",
-                "concurrency":5,
-                "refresh":5
-            },
-            "streamSettings":{
-                "network":"kcp",
-                "kcpSettings":{
-                    "mtu":1350,
-                    "tti":50,
-                    "uplinkCapacity":100,
-                    "downlinkCapacity":100,
-                    "congestion":false,
-                    "readBufferSize":2,
-                    "writeBufferSize":2,
-                    "header":{
-                        "type":"srtp"
-                    }
-                }
-            }
-        }
     ],
     "outboundDetour":[
         {

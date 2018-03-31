@@ -1,0 +1,22 @@
+{
+    "inbound":{
+        "port":8080,
+        "protocol":"socks",
+        "settings":{
+			"auth":"password",
+			"accounts":[
+				{
+					"user":"username",
+					"pass":"password"
+				}
+			],
+			"udp":true,
+			"userLevel":0
+		}
+    },
+    "outbound":{
+        "protocol":"freedom",
+        "settings":{},
+        "tag":"direct"
+    }
+}

@@ -1,0 +1,13 @@
+http://V2rayAddress {
+  timeouts none
+  redir https://V2rayAddress{url}
+}
+https://V2rayAddress
+{
+  root /etc/v2ray/pages
+  tls /etc/v2ray/pem.pem /etc/v2ray/key.key
+  proxy /fuckgfw_gfwmotherfuckingboom/PathUUID localhost:V2RayListenPort {
+    websocket
+    header_upstream -Origin
+  }
+}
