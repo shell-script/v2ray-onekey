@@ -131,7 +131,7 @@ function data_processing(){
 	clear
 	echo -e "正在处理请求中..."
 	if [[ ${determine_type} = "0" ]]; then
-		prevent_not_install_old
+		uninstall_old
 	elif [[ ${determine_type} = "8" ]]; then
 		upgrade_shell_script
 	elif [[ ${determine_type} = "9" ]]; then
