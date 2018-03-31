@@ -168,7 +168,7 @@ function data_processing(){
 		fi
 	fi
 		if [[ ${determine_type} = "1" ]]; then
-			wget -O "/etc/v2ray/config.json" "https://download.v2ray-install.ml/configs/socks5.json"
+			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/socks5.json"
 			if [[ $? -eq 0 ]];then
 				clear
 				echo -e "${ok_font}Socks5 配置文件下载成功。"
@@ -222,7 +222,7 @@ function data_processing(){
 			restart_service
 			echo_v2ray_config
 		elif [[ ${determine_type} = "2" ]]; then
-			wget -O "/etc/v2ray/config.json" "https://download.v2ray-install.ml/configs/tcp-http.json"
+			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/tcp-http.json"
 			if [[ $? -eq 0 ]];then
 				clear
 				echo -e "${ok_font}V2Ray 配置文件下载成功。"
@@ -286,7 +286,7 @@ function data_processing(){
 				clear_install
 				exit 1
 			fi
-			wget -O "/etc/v2ray/config.json" "https://download.v2ray-install.ml/configs/tcp-tls.json"
+			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/tcp-tls.json"
 			if [[ $? -eq 0 ]];then
 				clear
 				echo -e "${ok_font}V2Ray 配置文件下载成功。"
@@ -373,7 +373,7 @@ function data_processing(){
 			restart_service
 			echo_v2ray_config
 		elif [[ ${determine_type} = "4" ]]; then
-			wget -O "/etc/v2ray/config.json" "https://download.v2ray-install.ml/configs/mkcp-utp.json"
+			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/mkcp-utp.json"
 			if [[ $? -eq 0 ]];then
 				clear
 				echo -e "${ok_font}V2Ray 配置文件下载成功。"
@@ -408,7 +408,7 @@ function data_processing(){
 			restart_service
 			echo_v2ray_config
 		elif [[ ${determine_type} = "5" ]]; then
-			wget -O "/etc/v2ray/config.json" "https://download.v2ray-install.ml/configs/mkcp-srtp.json"
+			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/mkcp-srtp.json"
 			if [[ $? -eq 0 ]];then
 				clear
 				echo -e "${ok_font}V2Ray 配置文件下载成功。"
@@ -443,7 +443,7 @@ function data_processing(){
 			restart_service
 			echo_v2ray_config
 		elif [[ ${determine_type} = "6" ]]; then
-			wget -O "/etc/v2ray/config.json" "https://download.v2ray-install.ml/configs/mkcp-srtp-dynport.json"
+			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/mkcp-srtp-dynport.json"
 			if [[ $? -eq 0 ]];then
 				clear
 				echo -e "${ok_font}V2Ray 配置文件下载成功。"
@@ -515,8 +515,8 @@ function data_processing(){
 				clear_install
 				exit 1
 			fi
-			wget -O "/etc/v2ray/config.json" "https://download.v2ray-install.ml/configs/websocket-tls-website-path.json"
-			wget -O "/usr/local/caddy/Caddyfile" "https://download.v2ray-install.ml/configs/websocket-tls-website-path.Caddyfile"
+			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/websocket-tls-website-path.json"
+			wget -O "/usr/local/caddy/Caddyfile" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/websocket-tls-website-path.Caddyfile"
 			clear
 			install_port="443"
 			check_port
@@ -650,7 +650,7 @@ function data_processing(){
 					clear_install
 					exit 1
 				fi
-				wget -O "/etc/v2ray/pages/v2ray-page.zip" "https://download.v2ray-install.ml/pages/v2ray-page.zip"
+				wget -O "/etc/v2ray/pages/v2ray-page.zip" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/pages/v2ray-page.zip"
 				if [[ $? -eq 0 ]];then
 					clear
 					echo -e "${ok_font}下载网页文件压缩包成功。"
@@ -763,7 +763,7 @@ function upgrade_shell_script(){
 	echo -e "正在更新脚本中..."
 	filepath=$(cd "$(dirname "$0")"; pwd)
 	filename=$(echo -e "${filepath}"|awk -F "$0" '{print $1}')
-	curl -O https://download.v2ray-install.ml/v2ray-go.sh
+	curl -O https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/v2ray-go.sh
 	if [[ $? -eq 0 ]];then
 		clear
 		echo -e "${ok_font}脚本更新成功，脚本位置：\"${green_backgroundcolor}${filename}/v2ray-go.sh${default_fontcolor}\"，使用：\"${green_backgroundcolor}bash ${filename}/v2ray-go.sh${default_fontcolor}\"。"
