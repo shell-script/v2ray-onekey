@@ -95,17 +95,18 @@ function echo_install_list(){
 	4.Mkcp+BT流量伪装
 	5.Mkcp+Facetime视频流量伪装
 	6.Mkcp+Facetime视频流量伪装+动态端口
-	7.Websocket+TLS+网站伪装
+	7.HTTP/2+TLS
+	8.Websocket+TLS+网站伪装
 --------------------------------------------------------------------------------------------------
 V2Ray当前运行状态：${v2ray_status}
 Caddy当前运行状态：${caddy_status}
-	8.更新脚本
-	9.更新程序
-	10.卸载程序
+	9.更新脚本
+	10.更新程序
+	11.卸载程序
 
-	11.启动程序
-	12.关闭程序
-	13.重启程序
+	12.启动程序
+	13.关闭程序
+	14.重启程序
 --------------------------------------------------------------------------------------------------
 Vmess链接：${now_vmess_link}
 --------------------------------------------------------------------------------------------------"
@@ -118,7 +119,7 @@ Vmess链接：${now_vmess_link}
 		clear
 		echo -e "${error_font}请输入正确的序号！"
 		exit 1
-	elif [[ ${determine_type} -gt 13 ]]; then
+	elif [[ ${determine_type} -gt 14 ]]; then
 		clear
 		echo -e "${error_font}请输入正确的序号！"
 		exit 1
@@ -132,22 +133,22 @@ function data_processing(){
 	echo -e "正在处理请求中..."
 	if [[ ${determine_type} = "0" ]]; then
 		uninstall_old
-	elif [[ ${determine_type} = "8" ]]; then
-		upgrade_shell_script
 	elif [[ ${determine_type} = "9" ]]; then
+		upgrade_shell_script
+	elif [[ ${determine_type} = "10" ]]; then
 		prevent_uninstall_check
 		upgrade_program
 		restart_service
-	elif [[ ${determine_type} = "10" ]]; then
-		prevent_uninstall_check
-		uninstall_program
 	elif [[ ${determine_type} = "11" ]]; then
 		prevent_uninstall_check
-		start_service
+		uninstall_program
 	elif [[ ${determine_type} = "12" ]]; then
 		prevent_uninstall_check
-		stop_service
+		start_service
 	elif [[ ${determine_type} = "13" ]]; then
+		prevent_uninstall_check
+		stop_service
+	elif [[ ${determine_type} = "14" ]]; then
 		prevent_uninstall_check
 		restart_service
 	else
@@ -505,6 +506,103 @@ function data_processing(){
 				clear_install
 				exit 1
 			fi
+			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/h2-path.json"
+			if [[ $? -eq 0 ]];then
+				clear
+				echo -e "${ok_font}V2Ray 配置文件下载成功。"
+			else
+				clear
+				echo -e "${error_font}V2Ray 配置文件下载失败！"
+				clear_install
+				exit 1
+			fi
+			clear
+			install_port="443"
+			check_port
+			sed -i "s/UserUUID/${UUID}/g" "/etc/v2ray/config.json"	
+			if [[ $? -eq 0 ]];then
+				clear
+				echo -e "${ok_font}V2Ray UUID配置成功。"
+			else
+				clear
+				echo -e "${error_font}V2Ray UUID配置失败！"
+				clear_install
+				exit 1
+			fi
+			clear
+			stty erase '^H' && read -p "请输入您的域名：" install_domain
+			if [[ ${install_domain} = "" ]]; then
+				clear
+				echo -e "${error_font}请输入您的域名。"
+				clear_install
+				exit 1
+			else
+				clear
+				echo -e "正在签发证书中..."
+				bash ~/.acme.sh/acme.sh --issue -d ${install_domain} --standalone -k ec-256 --force
+				if [[ $? -eq 0 ]];then
+					clear
+					echo -e "${ok_font}证书生成成功。"
+					bash ~/.acme.sh/acme.sh --installcert -d ${install_domain} --fullchainpath /etc/v2ray/pem.pem --keypath /etc/v2ray/key.key --ecc
+					if [[ $? -eq 0 ]];then
+						clear
+						echo -e "${ok_font}证书配置成功。"
+					else
+						clear
+						echo -e "${error_font}证书配置失败！"
+						clear_install
+						exit 1
+					fi
+				else
+					clear
+					echo -e "${error_font}证书生成失败！"
+					clear_install
+					exit 1
+				fi
+				sed -i "s/V2rayAddress/${install_domain}/g" "/etc/v2ray/config.json"
+				if [[ $? -eq 0 ]];then
+					clear
+					echo -e "${ok_font}V2Ray 域名配置成功。"
+				else
+					clear
+					echo -e "${error_font}V2Ray 域名配置失败！"
+					clear_install
+					exit 1
+				fi
+				echo "${install_domain}" > /etc/v2ray/full_domain.txt
+				if [[ $? -eq 0 ]];then
+					clear
+					echo -e "${ok_font}V2Ray 域名写入成功。"
+				else
+					clear
+					echo -e "${error_font}V2Ray 域名写入失败！"
+					clear_install
+					exit 1
+				fi
+				sed -i "s/PathUUID/${UUID2}/g" "/etc/v2ray/config.json"
+				if [[ $? -eq 0 ]];then
+					clear
+					echo -e "${ok_font}V2Ray UUID配置成功。"
+				else
+					clear
+					echo -e "${error_font}V2Ray UUID配置失败！"
+					clear_install
+					exit 1
+				fi
+			fi
+		elif [[ ${determine_type} = "8" ]]; then
+			clear
+			echo -e "正在安装acme.sh中..."
+			curl https://get.acme.sh | sh
+			if [[ $? -eq 0 ]];then
+				clear
+				echo -e "${ok_font}acme.sh 安装成功。"
+			else
+				clear
+				echo -e "${error_font}acme.sh 安装失败，请检查相关依赖是否正确安装。"
+				clear_install
+				exit 1
+			fi
 			bash <(curl https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/caddy_install.sh)
 			if [[ $? -eq 0 ]];then
 				clear
@@ -681,7 +779,7 @@ function data_processing(){
 					exit 1
 				fi
 			fi
-			echo "7" > /etc/v2ray/install_type.txt
+			echo "8" > /etc/v2ray/install_type.txt
 			if [[ $? -eq 0 ]];then
 				clear
 				echo -e "${ok_font}写入安装信息成功。"
@@ -790,7 +888,7 @@ function start_service(){
 	clear
 	echo -e "正在启动服务中..."
 	install_type=$(cat /etc/v2ray/install_type.txt)
-	if [ "${install_type}" -lt "7" ]; then
+	if [ "${install_type}" -lt "8" ]; then
 		if [[ ${v2ray_pid} -eq 0 ]]; then
 			service v2ray start
 			if [[ $? -eq 0 ]];then
@@ -841,7 +939,7 @@ function stop_service(){
 	clear
 	echo -e "正在停止服务中..."
 	install_type=$(cat /etc/v2ray/install_type.txt)
-	if [ "${install_type}" -lt "7" ]; then
+	if [ "${install_type}" -lt "8" ]; then
 		if [[ ${v2ray_pid} -eq 0 ]]; then
 			clear
 			echo -e "${error_font}V2Ray 未在运行。"
@@ -890,7 +988,7 @@ function restart_service(){
 	clear
 	echo -e "正在重启服务中..."
 	install_type=$(cat /etc/v2ray/install_type.txt)
-	if [ "${install_type}" -lt "7" ]; then
+	if [ "${install_type}" -lt "8" ]; then
 		service v2ray restart
 		if [[ $? -eq 0 ]];then
 			clear
@@ -920,12 +1018,12 @@ function restart_service(){
 function prevent_install_check(){
 	clear
 	echo -e "正在检测安装状态中..."
-	if [[ ${determine_type} -lt 8 ]]; then
+	if [[ ${determine_type} -lt 9 ]]; then
 		if [[ ${install_status} = "${green_fontcolor}已安装${default_fontcolor}" ]]; then
 			echo -e "${error_font}您已经安装过了，请勿再次安装，若您需要切换至其他模式，请先卸载后再使用安装功能。"
 			exit 1
 		elif [[ ${v2ray_status} = "${red_fontcolor}未安装${default_fontcolor}" ]]; then
-			if [[ ${determine_type} -lt 7 ]]; then
+			if [[ ${determine_type} -lt 8 ]]; then
 				echo -e "${ok_font}检测完毕，符合要求，正在执行命令中..."
 			else
 				if [[ ${caddy_status} = "${red_fontcolor}未安装${default_fontcolor}" ]]; then
@@ -946,7 +1044,7 @@ function uninstall_program(){
 	clear
 	echo -e "正在卸载中..."
 	install_type=$(cat /etc/v2ray/install_type.txt)
-	if [ "${install_type}" -lt "7" ]; then
+	if [ "${install_type}" -lt "8" ]; then
 		full_domain=$(cat /etc/v2ray/full_domain.txt)
 		delete_domain
 		bash ~/.acme.sh/acme.sh --revoke -d ${full_domain} --ecc
@@ -1004,7 +1102,7 @@ function upgrade_program(){
 	clear
 	echo -e "正在更新程序中..."
 	install_type=$(cat /etc/v2ray/install_type.txt)
-	if [ "${install_type}" -lt "7" ]; then
+	if [ "${install_type}" -lt "8" ]; then
 		bash <(curl https://install.direct/go.sh)
 		if [[ $? -eq 0 ]];then
 			clear
@@ -1342,6 +1440,21 @@ function echo_v2ray_config(){
 		echo -e "伪装类型：srtp"
 		echo -e "Vmess链接：${green_backgroundcolor}${vmesslink}${default_fontcolor}"
 	elif [[ ${determine_type} = "7" ]]; then
+		clear
+		vmesslink="您选择的协议：H2 暂不支持生成vmess链接。"
+		echo -e "您的连接信息如下："
+		echo -e "别名(Remarks)：${hostname}"
+		echo -e "地址(Address)：${install_domain}"
+		echo -e "端口(Port)：${install_port}"
+		echo -e "用户ID(ID)：${UUID}"
+		echo -e "额外ID(AlterID)：100"
+		echo -e "加密方式(Security)：none"
+		echo -e "传输协议(Network）：h2"
+		echo -e "伪装类型：none"
+		echo -e "伪装域名/其他项：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
+		echo -e "Vmess链接：${red_backgroundcolor}${vmesslink}${default_fontcolor}"
+	fi
+	elif [[ ${determine_type} = "8" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
 		  \"ps\": \"${hostname}\",
