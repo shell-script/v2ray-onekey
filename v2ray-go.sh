@@ -492,7 +492,7 @@ function data_processing(){
 			fi
 			restart_service
 			echo_v2ray_config
-		elif [[ ${determine_type} = "6" ]]; then
+		elif [[ ${determine_type} = "7" ]]; then
 			clear
 			echo -e "正在安装acme.sh中..."
 			curl https://get.acme.sh | sh
@@ -681,7 +681,7 @@ function data_processing(){
 					exit 1
 				fi
 			fi
-			echo "6" > /etc/v2ray/install_type.txt
+			echo "7" > /etc/v2ray/install_type.txt
 			if [[ $? -eq 0 ]];then
 				clear
 				echo -e "${ok_font}写入安装信息成功。"
