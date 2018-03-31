@@ -1453,7 +1453,6 @@ function echo_v2ray_config(){
 		echo -e "伪装类型：none"
 		echo -e "伪装域名/其他项：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
 		echo -e "Vmess链接：${red_backgroundcolor}${vmesslink}${default_fontcolor}"
-	fi
 	elif [[ ${determine_type} = "8" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
