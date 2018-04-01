@@ -1046,7 +1046,6 @@ function uninstall_program(){
 	install_type=$(cat /etc/v2ray/install_type.txt)
 	if [ "${install_type}" -lt "8" ]; then
 		full_domain=$(cat /etc/v2ray/full_domain.txt)
-		delete_domain
 		bash ~/.acme.sh/acme.sh --revoke -d ${full_domain} --ecc
 		bash ~/.acme.sh/acme.sh --remove -d ${full_domain} --ecc
 		rm -rf ~/.acme.sh
@@ -1068,7 +1067,6 @@ function uninstall_program(){
 		fi
 	else
 		full_domain=$(cat /etc/v2ray/full_domain.txt)
-		delete_domain
 		bash ~/.acme.sh/acme.sh --revoke -d ${full_domain} --ecc
 		bash ~/.acme.sh/acme.sh --remove -d ${full_domain} --ecc
 		rm -rf ~/.acme.sh
@@ -1132,9 +1130,8 @@ function upgrade_program(){
 function clear_install(){
 	clear
 	echo -e "正在卸载中..."
-	if [ "${determine_type}" -le "4" ]; then
+	if [ "${determine_type}" -lt "8" ]; then
 		full_domain=$(cat /etc/v2ray/full_domain.txt)
-		delete_domain
 		bash ~/.acme.sh/acme.sh --revoke -d ${full_domain} --ecc
 		bash ~/.acme.sh/acme.sh --remove -d ${full_domain} --ecc
 		rm -rf ~/.acme.sh
@@ -1154,9 +1151,8 @@ function clear_install(){
 			clear
 			echo -e "${error_font}V2Ray卸载失败！"
 		fi
-	elif [ "${determine_type}" -eq "5" ];then
+	else
 		full_domain=$(cat /etc/v2ray/full_domain.txt)
-		delete_domain
 		bash ~/.acme.sh/acme.sh --revoke -d ${full_domain} --ecc
 		bash ~/.acme.sh/acme.sh --remove -d ${full_domain} --ecc
 		rm -rf ~/.acme.sh
