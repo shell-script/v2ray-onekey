@@ -23,8 +23,6 @@ function check_os(){
 	# Check root user
 	echo -e "正在检测当前是否为ROOT用户..."
 	if [[ $EUID -ne 0 ]]; then
-		sudo su
-		check_os
 		clear
 		echo -e "${error_font}当前并非ROOT用户，请先切换到ROOT用户后再使用本脚本。"
 		exit 1
