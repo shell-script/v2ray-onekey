@@ -1312,13 +1312,14 @@ function open_port(){
 function echo_v2ray_config(){
 	if [[ ${determine_type} = "1" ]]; then
 		clear
+		vmesslink="https://t.me/socks?server=${Address}&port=${install_port}&user=${install_socks_username}&pass=${install_socks_password}"
 		echo -e "您的连接信息如下："
 		echo -e "地址(Hostname)：${Address}"
 		echo -e "端口(Port)：${install_port}"
 		echo -e "用户名(Username)：${install_socks_username}"
 		echo -e "密码(Password)：${install_socks_password}"
 		echo -e "代理协议(Proxy Type)：socks5"
-		echo -e "Telegram设置链接： ${green_backgroundcolor}https://t.me/socks?server=${Address}&port=${install_port}&user=${install_socks_username}&pass=${install_socks_password}${default_fontcolor}"
+		echo -e "Telegram设置链接： ${green_backgroundcolor}${vmesslink}${default_fontcolor}"
 	elif [[ ${determine_type} = "2" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
