@@ -178,32 +178,32 @@ function data_processing(){
 				exit 1
 			fi
 			input_port
-			stty erase '^H' && read -p "请输入Socks的用户名(默认：username)：" install_socks_username
+			stty erase '^H' && read -p "请输入Socks用户名(默认：username)：" install_socks_username
 			if [[ ${install_socks_username} = "" ]]; then
 				install_socks_username="username"
 			else
 				sed -i "s/username/${install_socks_username}/g" "/etc/v2ray/config.json"
 				if [[ $? -eq 0 ]];then
 					clear
-					echo -e "${ok_font}SS加密配置成功。"
+					echo -e "${ok_font}Socks用户名配置成功。"
 				else
 					clear
-					echo -e "${error_font}SS加密配置失败！"
+					echo -e "${error_font}Socks用户名配置失败！"
 					clear_install
 					exit 1
 				fi
 			fi
-			stty erase '^H' && read -p "请输入Socks的密码(默认：password)：" install_socks_password
+			stty erase '^H' && read -p "请输入Socks密码(默认：passwd)：" install_socks_password
 			if [[ ${install_socks_password} = "" ]]; then
-				install_socks_password="password"
+				install_socks_password="passwd"
 			else
-				sed -i "s/password/${install_socks_password}/g" "/etc/v2ray/config.json"
+				sed -i "s/passwd/${install_socks_password}/g" "/etc/v2ray/config.json"
 				if [[ $? -eq 0 ]];then
 					clear
-					echo -e "${ok_font}SS加密配置成功。"
+					echo -e "${ok_font}Socks密码配置成功。"
 				else
 					clear
-					echo -e "${error_font}SS加密配置失败！"
+					echo -e "${error_font}Socks密码配置失败！"
 					clear_install
 					exit 1
 				fi
