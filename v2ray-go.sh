@@ -588,6 +588,18 @@ function data_processing(){
 					exit 1
 				fi
 			fi
+			echo "7" > /etc/v2ray/install_type.txt
+			if [[ $? -eq 0 ]];then
+				clear
+				echo -e "${ok_font}写入安装信息成功。"
+			else
+				clear
+				echo -e "${error_font}写入安装信息失败！"
+				clear_install
+				exit 1
+			fi
+			restart_service
+			echo_v2ray_config
 		elif [[ ${determine_type} = "8" ]]; then
 			clear
 			echo -e "正在安装acme.sh中..."
@@ -1436,7 +1448,7 @@ function echo_v2ray_config(){
 		echo -e "Vmess链接：${green_backgroundcolor}${vmesslink}${default_fontcolor}"
 	elif [[ ${determine_type} = "7" ]]; then
 		clear
-		vmesslink="您选择的协议：H2 暂不支持生成vmess链接。"
+		vmesslink="别名(Remarks)：${hostname}\n地址(Address)：${install_domain}\n端口(Port)：${install_port}\n用户ID(ID)：${UUID}\n额外ID(AlterID)：100\n加密方式(Security)：none\n传输协议(Network）：h2\n伪装类型：none\n伪装域名/其他项：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
 		echo -e "您的连接信息如下："
 		echo -e "别名(Remarks)：${hostname}"
 		echo -e "地址(Address)：${install_domain}"
@@ -1447,7 +1459,6 @@ function echo_v2ray_config(){
 		echo -e "传输协议(Network）：h2"
 		echo -e "伪装类型：none"
 		echo -e "伪装域名/其他项：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
-		echo -e "Vmess链接：${red_backgroundcolor}${vmesslink}${default_fontcolor}"
 	elif [[ ${determine_type} = "8" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
