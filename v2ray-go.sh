@@ -1448,7 +1448,7 @@ function echo_v2ray_config(){
 		echo -e "Vmess链接：${green_backgroundcolor}${vmesslink}${default_fontcolor}"
 	elif [[ ${determine_type} = "7" ]]; then
 		clear
-		vmesslink="别名(Remarks)：${hostname}\n地址(Address)：${install_domain}\n端口(Port)：${install_port}\n用户ID(ID)：${UUID}\n额外ID(AlterID)：100\n加密方式(Security)：none\n传输协议(Network）：h2\n伪装类型：none\n伪装域名/其他项：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
+		vmesslink="\n别名(Remarks)：${hostname}\n地址(Address)：${install_domain}\n端口(Port)：${install_port}\n用户ID(ID)：${UUID}\n额外ID(AlterID)：100\n加密方式(Security)：none\n传输协议(Network）：h2\n伪装类型：none\n伪装域名/其他项：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
 		echo -e "您的连接信息如下："
 		echo -e "别名(Remarks)：${hostname}"
 		echo -e "地址(Address)：${install_domain}"
