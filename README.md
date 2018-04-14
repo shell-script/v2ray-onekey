@@ -1,4 +1,4 @@
-# v2ray-onekey
+# V2Ray-Onekey
 ## V2RAY EASY TO USE
 ### Index: [v2ray-install.ml](https://www.v2ray-install.ml)
 - - -
