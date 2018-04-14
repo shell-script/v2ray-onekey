@@ -1,5 +1,6 @@
 # v2ray-onekey
-### Index: [www.v2ray-install.ml](https://v2ray-install.ml)
+## V2RAY EASY TO USE
+### Index: [v2ray-install.ml](https://www.v2ray-install.ml)
 - - -
 ## Copy the command to your vps & execute it:
 ```bash
