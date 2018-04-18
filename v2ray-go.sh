@@ -758,7 +758,7 @@ function data_processing(){
 					clear_install
 					exit 1
 				fi
-				wget -O "/etc/v2ray/pages/v2ray-page.zip" "https://github.com/1715173329/v2ray-onekey/blob/master/pages/v2ray-webpage.zip?raw=true"
+				wget -O "/etc/v2ray/pages/v2ray-page.zip" "https://github.com/1715173329/v2ray-onekey/blob/master/pages/v2ray-page.zip?raw=true"
 				if [[ $? -eq 0 ]];then
 					clear
 					echo -e "${ok_font}下载网页文件压缩包成功。"
@@ -785,6 +785,26 @@ function data_processing(){
 				else
 					clear
 					echo -e "${error_font}删除网页文件压缩包失败！"
+					clear_install
+					exit 1
+				fi
+				sed -i "s/HTML_NUMBER/${html_number}/g" "/etc/v2ray/pages/index.html"
+				if [[ $? -eq 0 ]];then
+					clear
+					echo -e "${ok_font}配置网页电话号成功。"
+				else
+					clear
+					echo -e "${error_font}配置网页电话号失败！"
+					clear_install
+					exit 1
+				fi
+				sed -i "s/V2rayAddress/${install_domain}/g" "/etc/v2ray/pages/index.html"
+				if [[ $? -eq 0 ]];then
+					clear
+					echo -e "${ok_font}配置网页域名成功。"
+				else
+					clear
+					echo -e "${error_font}配置网页域名失败！"
 					clear_install
 					exit 1
 				fi
@@ -1081,6 +1101,7 @@ function uninstall_program(){
 		bash ~/.acme.sh/acme.sh --remove -d ${full_domain} --ecc
 		rm -rf ~/.acme.sh
 		service v2ray stop
+		systemctl disable v2ray.service
 		update-rc.d -f v2ray remove
 		rm -rf /etc/init.d/v2ray
 		rm -rf /etc/v2ray
@@ -1234,6 +1255,7 @@ function generate_base_config(){
 	UUID=$(cat /proc/sys/kernel/random/uuid)
 	UUID2=$(cat /proc/sys/kernel/random/uuid)
 	let v2_listen_port=$RANDOM+10000
+	let html_number=$RANDOM+10000
 	if [[ ${hostname} = "" ]]; then
 		clear
 		echo -e "${error_font}读取Hostname失败！"
@@ -1254,13 +1276,18 @@ function generate_base_config(){
 		clear
 		echo -e "${error_font}生成V2Ray监听端口失败！"
 		exit 1
+	elif [[ ${html_number} = "" ]]; then
+		clear
+		echo -e "${error_font}生成网页随机数字失败！"
+		exit 1
 	else
 		clear
 		echo -e "${ok_font}您的主机名为：${hostname}"
 		echo -e "${ok_font}您的vps_ip为：${Address}"
 		echo -e "${ok_font}生成的UUID为：${UUID}"
 		echo -e "${ok_font}生成的UUID2为：${UUID2}"
-		echo -e "${ok_font}生成V2Ray监听端口为：${v2_listen_port}"
+		echo -e "${ok_font}生成的V2Ray监听端口为：${v2_listen_port}"
+		echo -e "${ok_font}生成的网页随机数字为：${html_number}"
 	fi
 }
 
