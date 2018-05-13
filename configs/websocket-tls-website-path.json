@@ -1,27 +1,62 @@
 {
-    "inbound":{
-        "port":V2RayListenPort,
-        "listen":"127.0.0.1",
-        "protocol":"vmess",
-        "settings":{
-            "clients":[
+    "inbound": {
+		"listen":"127.0.0.1",
+        "port": V2RayListenPort,
+        "protocol": "vmess",
+        "settings": {
+			"udp": true,
+            "clients": [
                 {
-                    "id":"UserUUID",
-                    "alterId":100
+                    "id": "UserUUID",
+                    "alterId": 100
                 }
             ]
-        },
-        "streamSettings":{
-            "network":"ws",
+		},
+		"streamSettings": {
+			"network":"ws",
             "wsSettings":{
-                "path":"/fuckgfw_gfwmotherfuckingboom/PathUUID"
-            }
+				"path":"/fuckgfw_gfwmotherfuckingboom/PathUUID"
+			}
         }
     },
-    "outbound":{
-        "protocol":"freedom",
-        "settings":{
-
+    "outbound": {
+        "protocol": "freedom",
+        "settings": {}
+    },
+    "inboundDetour": [],
+    "outboundDetour": [
+        {
+            "protocol": "blackhole",
+            "settings": {},
+            "tag": "blocked"
+        }
+    ],
+    "routing": {
+        "strategy": "rules",
+        "settings": {
+            "rules": [
+                {
+                    "type": "field",
+                    "ip": [
+                        "0.0.0.0/8",
+                        "10.0.0.0/8",
+                        "100.64.0.0/10",
+                        "127.0.0.0/8",
+                        "169.254.0.0/16",
+                        "172.16.0.0/12",
+                        "192.0.0.0/24",
+                        "192.0.2.0/24",
+                        "192.168.0.0/16",
+                        "198.18.0.0/15",
+                        "198.51.100.0/24",
+                        "203.0.113.0/24",
+                        "::1/128",
+                        "fc00::/7",
+                        "fe80::/10"
+                    ],
+                    "outboundTag": "blocked"
+                }
+            ]
         }
     }
-}
+} 

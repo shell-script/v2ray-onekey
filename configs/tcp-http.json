@@ -3,6 +3,7 @@
         "port":80,
         "protocol":"vmess",
         "settings":{
+			"udp": true,
             "clients":[
                 {
                     "id":"UserUUID",
