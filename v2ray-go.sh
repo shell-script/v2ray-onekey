@@ -91,7 +91,7 @@ function echo_install_list(){
 	2.TCP+HTTP伪装
 	3.TCP+TLS
 	4.Mkcp+BT流量伪装
-	5.Mkcp+Facetime视频流量伪装
+	5.Mkcp+DTLS伪装
 	6.Mkcp+Facetime视频流量伪装+动态端口
 	7.HTTP/2+TLS
 	8.Websocket+TLS+网站伪装
@@ -407,7 +407,7 @@ function data_processing(){
 			restart_service
 			echo_v2ray_config
 		elif [[ ${determine_type} = "5" ]]; then
-			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/mkcp-srtp.json"
+			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/mkcp-dtls.json"
 			if [[ $? -eq 0 ]];then
 				clear
 				echo -e "${ok_font}V2Ray 配置文件下载成功。"
@@ -1436,7 +1436,7 @@ function echo_v2ray_config(){
 		  \"id\": \"${UUID}\",
 		  \"aid\": \"100\",
 		  \"net\": \"kcp\",
-		  \"type\": \"srtp\",
+		  \"type\": \"dtls\",
 		  \"host\": \"\",
 		  \"tls\": \"\"
 		  }" | base64)
@@ -1448,7 +1448,7 @@ function echo_v2ray_config(){
 		echo -e "额外ID(AlterID)：100"
 		echo -e "加密方式(Security)：aes-128-gcm"
 		echo -e "传输协议(Network）：kcp"
-		echo -e "伪装类型：srtp"
+		echo -e "伪装类型：dtls"
 		echo -e "Vmess链接：${green_backgroundcolor}${vmesslink}${default_fontcolor}"
 	elif [[ ${determine_type} = "6" ]]; then
 		clear
