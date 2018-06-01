@@ -23,7 +23,7 @@
                 "readBufferSize":2,
                 "writeBufferSize":2,
                 "header":{
-                    "type":"utp"
+                    "type":"dtls"
                 }
             }
         }
