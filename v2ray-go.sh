@@ -527,8 +527,21 @@ function data_processing(){
 				exit 1
 			fi
 			clear
+			stty erase '^H' && read -p "请输入监听端口(默认监听443端口)：" install_port
+			if [[ ${install_port} = "" ]]; then
 			install_port="443"
+			fi
 			check_port
+			sed -i "s/443/${install_port}/g" "/etc/v2ray/config.json"
+			if [[ $? -eq 0 ]];then
+				clear
+				echo -e "${ok_font}V2Ray端口配置成功。"
+			else
+				clear
+				echo -e "${error_font}V2Ray端口配置失败！"
+				clear_install
+				exit 1
+			fi
 			sed -i "s/UserUUID/${UUID}/g" "/etc/v2ray/config.json"	
 			if [[ $? -eq 0 ]];then
 				clear
