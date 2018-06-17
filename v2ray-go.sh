@@ -888,7 +888,7 @@ function uninstall_old(){
 	clear
 	stty erase '^H' && read -p "您是否需要卸载Caddy？[Y/N,Default:N]" uninstall_caddy_right
 	if [[ ${uninstall_caddy_right} == [Yy] ]]; then
-		if [[ ${v2ray_status} = "${red_fontcolor}未安装${default_fontcolor}" ]]; then
+		if [[ ${caddy_status} = "${red_fontcolor}未安装${default_fontcolor}" ]]; then
 			clear
 			echo -e "${error_font}您未安装Caddy。"
 		else
