@@ -651,6 +651,9 @@ function data_processing(){
 			wget -O "/etc/v2ray/config.json" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/websocket-tls-website-path.json"
 			wget -O "/usr/local/caddy/Caddyfile" "https://raw.githubusercontent.com/1715173329/v2ray-onekey/master/configs/websocket-tls-website-path.Caddyfile"
 			clear
+			install_port="80"
+			check_port
+			clear
 			install_port="443"
 			check_port
 			sed -i "s/UserUUID/${UUID}/g" "/etc/v2ray/config.json"	
@@ -1385,16 +1388,18 @@ function echo_v2ray_config(){
 	elif [[ ${determine_type} = "2" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
-		  \"ps\": \"${hostname}\",
-		  \"add\": \"${Address}\",
-		  \"port\": \"${install_port}\",
-		  \"id\": \"${UUID}\",
-		  \"aid\": \"100\",
-		  \"net\": \"tcp\",
-		  \"type\": \"http\",
-		  \"host\": \"${false_domain}\",
-		  \"tls\": \"\"
-		  }" | base64)
+\"v\": "2",
+\"ps\": \"${hostname}\",
+\"add\": \"${Address}\",
+\"port\": \"${install_port}\",
+\"id\": \"${UUID}\",
+\"aid\": \"100\",
+\"net\": \"tcp\",
+\"type\": \"http\",
+\"host\": \"${false_domain}\",
+\"path\": \"\",
+\"tls\": \"tls\"
+}" | base64)
 		echo -e "您的连接信息如下："
 		echo -e "别名(Remarks)：${hostname}"
 		echo -e "地址(Address)：{Address}"
@@ -1409,16 +1414,18 @@ function echo_v2ray_config(){
 	elif [[ ${determine_type} = "3" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
-		  \"ps\": \"${hostname}\",
-		  \"add\": \"${install_domain}\",
-		  \"port\": \"${install_port}\",
-		  \"id\": \"${UUID}\",
-		  \"aid\": \"100\",
-		  \"net\": \"tcp\",
-		  \"type\": \"none\",
-		  \"host\": \"\",
-		  \"tls\": \"tls\"
-		  }" | base64)
+\"v\": "2",
+\"ps\": \"${hostname}\",
+\"add\": \"${install_domain}\",
+\"port\": \"${install_port}\",
+\"id\": \"${UUID}\",
+\"aid\": \"100\",
+\"net\": \"tcp\",
+\"type\": \"none\",
+\"host\": \"\",
+\"path\": \"\",
+\"tls\": \"tls\"
+}" | base64)
 		echo -e "您的连接信息如下："
 		echo -e "别名(Remarks)：${hostname}"
 		echo -e "地址(Address)：${install_domain}"
@@ -1432,16 +1439,18 @@ function echo_v2ray_config(){
 	elif [[ ${determine_type} = "4" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
-		  \"ps\": \"${hostname}\",
-		  \"add\": \"${Address}\",
-		  \"port\": \"${install_port}\",
-		  \"id\": \"${UUID}\",
-		  \"aid\": \"100\",
-		  \"net\": \"kcp\",
-		  \"type\": \"utp\",
-		  \"host\": \"\",
-		  \"tls\": \"\"
-		  }" | base64)
+\"v\": "2",
+\"ps\": \"${hostname}\",
+\"add\": \"${Address}\",
+\"port\": \"${install_port}\",
+\"id\": \"${UUID}\",
+\"aid\": \"100\",
+\"net\": \"kcp\",
+\"type\": \"utp\",
+\"host\": \"\",
+\"path\": \"\",
+\"tls\": \"\"
+}" | base64)
 		echo -e "您的连接信息如下："
 		echo -e "别名(Remarks)：${hostname}"
 		echo -e "地址(Address)：${Address}"
@@ -1455,16 +1464,18 @@ function echo_v2ray_config(){
 	elif [[ ${determine_type} = "5" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
-		  \"ps\": \"${hostname}\",
-		  \"add\": \"${Address}\",
-		  \"port\": \"${install_port}\",
-		  \"id\": \"${UUID}\",
-		  \"aid\": \"100\",
-		  \"net\": \"kcp\",
-		  \"type\": \"dtls\",
-		  \"host\": \"\",
-		  \"tls\": \"\"
-		  }" | base64)
+\"v\": "2",
+\"ps\": \"${hostname}\",
+\"add\": \"${Address}\",
+\"port\": \"${install_port}\",
+\"id\": \"${UUID}\",
+\"aid\": \"100\",
+\"net\": \"kcp\",
+\"type\": \"dtls\",
+\"host\": \"\",
+\"path\": \"\",
+\"tls\": \"\"
+}" | base64)
 		echo -e "您的连接信息如下："
 		echo -e "别名(Remarks)：${hostname}"
 		echo -e "地址(Address)：${Address}"
@@ -1478,16 +1489,18 @@ function echo_v2ray_config(){
 	elif [[ ${determine_type} = "6" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
-		  \"ps\": \"${hostname}\",
-		  \"add\": \"${Address}\",
-		  \"port\": \"${install_port}\",
-		  \"id\": \"${UUID}\",
-		  \"aid\": \"100\",
-		  \"net\": \"kcp\",
-		  \"type\": \"srtp\",
-		  \"host\": \"\",
-		  \"tls\": \"\"
-		  }" | base64)
+\"v\": "2",
+\"ps\": \"${hostname}\",
+\"add\": \"${Address}\",
+\"port\": \"${install_port}\",
+\"id\": \"${UUID}\",
+\"aid\": \"100\",
+\"net\": \"kcp\",
+\"type\": \"srtp\",
+\"host\": \"\",
+\"path\": \"\",
+\"tls\": \"\"
+}" | base64)
 		echo -e "您的连接信息如下："
 		echo -e "别名(Remarks)：${hostname}"
 		echo -e "地址(Address)：${Address}"
@@ -1501,16 +1514,18 @@ function echo_v2ray_config(){
 	elif [[ ${determine_type} = "7" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
-		  \"ps\": \"${hostname}\",
-		  \"add\": \"${install_domain}\",
-		  \"port\": \"${install_port}\",
-		  \"id\": \"${UUID}\",
-		  \"aid\": \"100\",
-		  \"net\": \"h2\",
-		  \"type\": \"none\",
-		  \"host\": \"/fuckgfw_gfwmotherfuckingboom/${UUID2}\",
-		  \"tls\": \"tls\"
-		  }" | base64)
+\"v\": "2",
+\"ps\": \"${hostname}\",
+\"add\": \"${install_domain}\",
+\"port\": \"${install_port}\",
+\"id\": \"${UUID}\",
+\"aid\": \"100\",
+\"net\": \"h2\",
+\"type\": \"none\",
+\"host\": \"\",
+\"path\": \"/fuckgfw_gfwmotherfuckingboom/${UUID2}\",
+\"tls\": \"tls\"
+}" | base64)
 		echo -e "您的连接信息如下："
 		echo -e "别名(Remarks)：${hostname}"
 		echo -e "地址(Address)：${install_domain}"
@@ -1521,19 +1536,22 @@ function echo_v2ray_config(){
 		echo -e "传输协议(Network）：h2"
 		echo -e "伪装类型：none"
 		echo -e "伪装域名/其他项：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
+		echo -e "Vmess链接：${green_backgroundcolor}${vmesslink}${default_fontcolor}"
 	elif [[ ${determine_type} = "8" ]]; then
 		clear
 		vmesslink="vmess://"$(echo -e "{
-		  \"ps\": \"${hostname}\",
-		  \"add\": \"${install_domain}\",
-		  \"port\": \"${install_port}\",
-		  \"id\": \"${UUID}\",
-		  \"aid\": \"100\",
-		  \"net\": \"ws\",
-		  \"type\": \"none\",
-		  \"host\": \"/fuckgfw_gfwmotherfuckingboom/${UUID2}\",
-		  \"tls\": \"tls\"
-		  }" | base64)
+\"v\": "2",
+\"ps\": \"${hostname}\",
+\"add\": \"${install_domain}\",
+\"port\": \"${install_port}\",
+\"id\": \"${UUID}\",
+\"aid\": \"100\",
+\"net\": \"ws\",
+\"type\": \"none\",
+\"host\": \"\",
+\"path\": \"/fuckgfw_gfwmotherfuckingboom/${UUID2}\",
+\"tls\": \"tls\"
+}" | base64)
 		echo -e "您的连接信息如下："
 		echo -e "别名(Remarks)：${hostname}"
 		echo -e "地址(Address)：${install_domain}"
