@@ -1535,7 +1535,7 @@ function echo_v2ray_config(){
 		echo -e "加密方式(Security)：none"
 		echo -e "传输协议(Network）：h2"
 		echo -e "伪装类型：none"
-		echo -e "伪装域名/其他项：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
+		echo -e "路径Path：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
 		echo -e "Vmess链接：${green_backgroundcolor}${vmesslink}${default_fontcolor}"
 	elif [[ ${determine_type} = "8" ]]; then
 		clear
@@ -1561,7 +1561,7 @@ function echo_v2ray_config(){
 		echo -e "加密方式(Security)：none"
 		echo -e "传输协议(Network）：ws"
 		echo -e "伪装类型：none"
-		echo -e "伪装域名/其他项：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
+		echo -e "路径Path：/fuckgfw_gfwmotherfuckingboom/${UUID2}"
 		echo -e "Vmess链接：${green_backgroundcolor}${vmesslink}${default_fontcolor}"
 	fi
 	echo -e "${vmesslink}" > /etc/v2ray/vmess_link.txt
